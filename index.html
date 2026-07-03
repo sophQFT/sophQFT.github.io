@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>soph / sophQFT</title>
+<meta name="description" content="機械学習・深層学習を数理統計・確率論・統計力学の観点から学んでいます。学習ノート・論文紹介・実装を公開。">
+<meta property="og:title" content="soph / sophQFT">
+<meta property="og:description" content="機械学習・深層学習を数理統計・確率論・統計力学の観点から学んでいます。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sophqft.github.io/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#18171C;
+  --panel:#1E1D24;
+  --text:#F0EFF4;
+  --sub:#C9C7D3;
+  --faint:#918FA0;
+  --accent:#A99DF2;
+  --accent-h:#C9C1FA;
+  --accent-dim:rgba(169,157,242,.14);
+  --rule:#39374A;
+  --rule-soft:#2A2936;
+  --wip:#DDB56A;
+  --sans:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans",sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:28px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.95;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:rgba(169,157,242,.35)}
+a{color:var(--accent);text-decoration:none;transition:color .15s}
+a:hover{color:var(--accent-h);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+html[data-lang="ja"] .en{display:none!important}
+html[data-lang="en"] .ja{display:none!important}
+.wrap{max-width:780px;margin:0 auto;padding:0 24px}
+
+header{background:linear-gradient(180deg,var(--panel) 0%,var(--bg) 100%);border-bottom:1px solid var(--rule-soft);padding:56px 0 42px}
+.head-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.handle{font-family:var(--mono);font-size:.8rem;color:var(--faint);margin-bottom:12px}
+h1{font-size:1.75rem;font-weight:700;line-height:1.45;margin-bottom:14px}
+header p{color:var(--sub);font-size:1rem;max-width:42em;margin-bottom:6px}
+.top-links{margin-top:16px;font-family:var(--mono);font-size:.85rem;display:flex;gap:22px}
+.lang-btn{font-family:var(--mono);font-size:.78rem;border:1px solid var(--rule);background:transparent;color:var(--sub);border-radius:6px;padding:6px 14px;cursor:pointer;flex-shrink:0;transition:border-color .15s,color .15s}
+.lang-btn:hover{border-color:var(--accent);color:var(--text)}
+.lang-btn .active{color:var(--accent);font-weight:700}
+
+main{padding:12px 0 56px}
+section{padding:40px 0 4px}
+.sec-head{display:flex;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--rule);margin-bottom:6px}
+.sec-no{font-family:var(--mono);font-size:.78rem;color:var(--accent);letter-spacing:.05em}
+h2{font-size:1.3rem;font-weight:700;letter-spacing:.01em}
+.sec-note{color:var(--faint);font-size:.9rem;margin:6px 0 2px}
+
+.entry{padding:26px 18px;margin:0 -18px;border-bottom:1px solid var(--rule-soft);border-radius:8px;transition:background .15s}
+.entry:hover{background:var(--panel)}
+.entry:last-child{border-bottom:none}
+.emeta{font-family:var(--mono);font-size:.76rem;color:var(--faint);letter-spacing:.02em;margin-bottom:4px}
+h3{font-size:1.12rem;font-weight:700;line-height:1.7;margin-bottom:6px}
+h3 a{color:var(--text)}
+h3 a:hover{color:var(--accent-h)}
+.badge{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;border-radius:5px;padding:1px 9px;vertical-align:2px;margin-left:10px;color:var(--wip);border:1px solid rgba(221,181,106,.4);background:rgba(221,181,106,.07)}
+.entry p{font-size:.95rem;color:var(--sub);margin-bottom:8px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.tags span{font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-dim);border-radius:5px;padding:2px 10px}
+.elinks{font-family:var(--mono);font-size:.8rem;display:flex;gap:20px;flex-wrap:wrap}
+.elinks a::before{content:"→ ";color:var(--faint)}
+
+.about p{font-size:.97rem;color:var(--sub);margin-bottom:12px}
+.interests{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.interests span{font-family:var(--mono);font-size:.76rem;color:var(--accent);background:var(--accent-dim);border-radius:6px;padding:5px 13px}
+ul.plain{list-style:none;margin-top:8px}
+ul.plain li{font-size:.95rem;color:var(--sub);padding:4px 0 4px 1.3em;position:relative}
+ul.plain li::before{content:"–";position:absolute;left:0;color:var(--accent)}
+
+footer{border-top:1px solid var(--rule-soft);background:var(--panel);padding:30px 0 44px;font-size:.84rem;color:var(--faint)}
+.foot-links{margin-top:14px;font-family:var(--mono);font-size:.8rem;display:flex;gap:20px;flex-wrap:wrap}
+
+@media(max-width:640px){
+  .entry{padding:24px 0;margin:0;border-radius:0}
+  .entry:hover{background:transparent}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="head-top">
+      <div>
+        <div class="handle">sophqft.github.io</div>
+        <h1>soph</h1>
+        <p class="ja">機械学習・深層学習を、数理統計・確率論・統計力学の観点から学んでいます。学習ノート・論文紹介・実装を GitHub と Zenn で公開しています。</p>
+        <p class="en">Studying machine learning through mathematical statistics, probability theory, and statistical mechanics. Notes, paper readings, and implementations on GitHub and Zenn.</p>
+        <div class="top-links">
+          <a href="https://github.com/sophQFT">GitHub</a>
+          <a href="https://zenn.dev/soph">Zenn</a>
+        </div>
+      </div>
+      <button class="lang-btn" id="langBtn" aria-label="Switch language"><span id="jaL" class="active">JA</span> / <span id="enL">EN</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="about" class="about">
+  <div class="sec-head"><span class="sec-no">01</span><h2>About</h2></div>
+  <p class="ja">機械学習を「使える」だけでなく「数理的に説明できる」状態で理解することを目標に、数理統計・確率論・統計力学を体系的に学んでいます。学んだ内容は教科書の行間を埋めるノートや輪読ゼミの発表資料として LaTeX / Beamer でまとめ、継続的に公開しています。今後は論文の再現実装や、機械学習プログラミングの学習ログも増やしていく予定です。</p>
+  <p class="en">My goal is to understand machine learning not just operationally but mathematically — well enough to explain it. I publish gap-filling notes and seminar slides written in LaTeX/Beamer, with paper reproductions and ML programming logs coming next.</p>
+</section>
+
+<section id="interests">
+  <div class="sec-head"><span class="sec-no">02</span><h2><span class="ja">関心領域</span><span class="en">Research Interests</span></h2></div>
+  <div class="interests">
+    <span class="ja">softmax とボルツマン分布の対応</span><span class="en">Softmax–Boltzmann correspondence</span>
+    <span>Energy-Based Models</span>
+    <span class="ja">LLM のハルシネーション検出</span><span class="en">LLM hallucination detection</span>
+    <span class="ja">分配関数・自由エネルギーと深層学習</span><span class="en">Partition functions &amp; free energy in DL</span>
+    <span class="ja">不確実性推定</span><span class="en">Uncertainty estimation</span>
+    <span>Transformer</span>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="sec-head"><span class="sec-no">03</span><h2><span class="ja">プロジェクト</span><span class="en">Featured Projects</span></h2></div>
+
+  <div class="entry">
+    <div class="emeta">LaTeX notes &amp; slides · 150+ pages published</div>
+    <h3><a href="https://sophqft.github.io/ml-math-learning-notes/">ML / Math Learning Notes</a></h3>
+    <p class="ja">数理統計・統計力学の行間補足ノート（熱力学・統計力学 40 ページほか）、D2L 輪読ゼミの発表スライド、ICLR 2026 論文「Spilled Energy in LLMs」の紹介資料などを収めたメインリポジトリ。</p>
+    <p class="en">The main repository: gap-filling notes on statistics and statistical mechanics, D2L reading-group slides, and a paper reading of "Spilled Energy in LLMs" (ICLR 2026).</p>
+    <div class="tags"><span>Statistical Mechanics</span><span>Mathematical Statistics</span><span>Energy-Based Model</span><span>LaTeX</span></div>
+    <div class="elinks">
+      <a href="https://sophqft.github.io/ml-math-learning-notes/"><span class="ja">サイト</span><span class="en">Site</span></a>
+      <a href="https://github.com/sophQFT/ml-math-learning-notes">GitHub</a>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="emeta">Python / PyTorch</div>
+    <h3><span class="ja">Spilled Energy 再現実装</span><span class="en">Spilled Energy Reproduction</span><span class="badge">WIP</span></h3>
+    <p class="ja">論文紹介した「Spilled Energy in Large Language Models」(ICLR 2026) のハルシネーション検出手法を、著者公開コードを参照しながら再現実装する予定のプロジェクト。数式を追った資料と対応する形で実装を整理します。</p>
+    <p class="en">A planned reproduction of the hallucination-detection method from "Spilled Energy in LLMs" (ICLR 2026), paired with my slide-level walkthrough of the math.</p>
+    <div class="tags"><span>LLM</span><span>Hallucination Detection</span><span>PyTorch</span></div>
+    <div class="elinks">
+      <a href="https://sophqft.github.io/ml-math-learning-notes/slides/paper-reading/spilled-energy-llm/spilled-energy-llm.pdf"><span class="ja">論文紹介スライド</span><span class="en">Paper-reading slides</span></a>
+    </div>
+  </div>
+
+  <!-- リポジトリができたらコメントを外して編集:
+
+  <div class="entry">
+    <div class="emeta">Python / PyTorch</div>
+    <h3><a href="https://github.com/sophQFT/llm-energy-lab">LLM Energy Lab</a></h3>
+    <p class="ja">LLM の logit をエネルギーとして扱う実験（温度・エネルギー分布・不確実性の可視化など）の実験場。</p>
+    <p class="en">Experiments treating LLM logits as energies: temperature, energy distributions, uncertainty visualization.</p>
+    <div class="tags"><span>LLM</span><span>Energy-Based Model</span></div>
+    <div class="elinks"><a href="https://github.com/sophQFT/llm-energy-lab">GitHub</a></div>
+  </div>
+
+  <div class="entry">
+    <div class="emeta">Python / pandas / scikit-learn</div>
+    <h3><a href="https://github.com/sophQFT/kaggle-ds-practice">Kaggle / DS Practice</a></h3>
+    <p class="ja">Kaggle コンペやデータ分析の練習ログ。</p>
+    <p class="en">Practice logs for Kaggle competitions and data analysis.</p>
+    <div class="tags"><span>Kaggle</span><span>Data Science</span></div>
+    <div class="elinks"><a href="https://github.com/sophQFT/kaggle-ds-practice">GitHub</a></div>
+  </div>
+
+  -->
+</section>
+
+<section id="articles">
+  <div class="sec-head"><span class="sec-no">04</span><h2><span class="ja">記事</span><span class="en">Articles</span></h2></div>
+
+  <div class="entry">
+    <div class="emeta">Zenn</div>
+    <h3><a href="https://zenn.dev/soph/articles/53c0c74bf90e06"><span class="ja">ヘルマート行列で示す標本平均と不偏分散の独立性と t 分布</span><span class="en">Independence of the sample mean and variance via the Helmert matrix, and the t distribution</span></a></h3>
+    <p class="ja">正規母集団における標本平均と不偏分散の独立性をヘルマート行列による直交変換で証明し、t 分布の導入まで整理した記事。</p>
+    <p class="en">An orthogonal Helmert-transformation proof of the independence of the sample mean and unbiased variance, leading to the t distribution.</p>
+    <div class="elinks">
+      <a href="https://zenn.dev/soph/articles/53c0c74bf90e06"><span class="ja">記事を読む</span><span class="en">Read</span></a>
+      <a href="https://zenn.dev/soph"><span class="ja">Zenn の記事一覧</span><span class="en">All articles</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="links">
+  <div class="sec-head"><span class="sec-no">05</span><h2>Links</h2></div>
+  <ul class="plain">
+    <li><a href="https://github.com/sophQFT">GitHub — sophQFT</a></li>
+    <li><a href="https://zenn.dev/soph">Zenn — soph</a></li>
+    <li><a href="https://sophqft.github.io/ml-math-learning-notes/">ML / Math Learning Notes</a></li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ja">このサイトは個人の学習・発表資料を整理したものです。内容には誤りを含む可能性があります。</div>
+    <div class="en">This site organizes personal study materials, which may contain errors.</div>
+    <div class="foot-links">
+      <a href="https://github.com/sophQFT">GitHub</a>
+      <a href="https://zenn.dev/soph">Zenn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('langBtn'),ja=document.getElementById('jaL'),en=document.getElementById('enL');
+  b.addEventListener('click',function(){
+    var r=document.documentElement,n=r.dataset.lang==='ja'?'en':'ja';
+    r.dataset.lang=n;r.setAttribute('lang',n);
+    ja.classList.toggle('active',n==='ja');en.classList.toggle('active',n==='en');
+  });
+})();
+</script>
+</body>
+</html>
